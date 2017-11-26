@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="documentation website for fabo academy x">
+    <meta name="author" content="Ziyang">
+
+    <title>CLASS SEVEN</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap/media/theme.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header"> <a class="navbar-brand" href="index.html">Ziyang Wang</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="about.html">About me</a></li>
+            <li><a href="class1.html">Class 1</a></li>
+            <li><a href="class2.html">Class 2</a></li>
+            <li><a href="class3.html">Class 3</a></li>
+            <li><a href="class4.html">Class 4</a></li>
+            <li><a href="class5.html">Class 5</a></li>
+            <li><a href="class6.html">Class 6</a></li>
+            <li><a href="class7.html">Class 7</a></li>
+
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="jumbotron">
+        <h1>CLASS SEVEN</h1>
+        <p>Begin to do my final project.</p></div>
+	 <div class="well">
+	 	<p>For my final project, I would like to make a music instruemnt like Theremin organ, which is the only instrument in the world that player doesn't need to touch.</p>
+	 	<p><img src="image/d0c8a786c9177f3e370ca57a70cf3bc79f3d5688.jpg" height=500></p>
+	 	<p>To make this instrument, I find <l>HC-SR04</l> ultrasonic sensor to measure the distance and a buzzer to make the sound.</p>
+	 	<p><img src="image/Sr04.jpg" height=500></p>
+	 	<p><img src="image/buzzer.jpg"></p>
+	 </div>
+
+	 <div>
+	 	<p>After searching for how to use the sensor and buzzer on the Internet, I made a working circuit,which can make the organ change the beat, or let it play fixed track. Here's the code:</p>
+	 <code>
+	 	#define NTD0 -1<br/>
+    #define NTD1 294<br/>
+#define NTD2 330<br/>
+#define NTD3 350<br/>
+#define NTD4 393<br/>
+#define NTD5 441<br/>
+#define NTD6 495<br/>
+#define NTD7 556<br/>
+
+#define NTDL1 147<br/>
+#define NTDL2 165<br/>
+#define NTDL3 175<br/>
+#define NTDL4 196<br/>
+#define NTDL5 221<br/>
+#define NTDL6 248<br/>
+#define NTDL7 278<br/>
+#define NTDH1 589<br/>
+#define NTDH2 661<br/>
+#define NTDH3 700<br/>
+#define NTDH4 786<br/>
+#define NTDH5 882<br/>
+#define NTDH6 990<br/>
+#define NTDH7 112<br/>
+//列出全部D调的频率<br/>
+#define WHOLE 1<br/>
+#define HALF 0.5<br/>
+#define QUARTER 0.25<br/>
+#define EIGHTH 0.25<br/>
+#define SIXTEENTH 0.625<br/>
+//列出所有节拍<br/>
+int tune[]=                 //根据简谱列出各频率<br/>
+{<br/>
+  NTD3,NTD3,NTD4,NTD5,<br/>
+  NTD5,NTD4,NTD3,NTD2,<br/>
+  NTD1,NTD1,NTD2,NTD3,<br/>
+  NTD3,NTD2,NTD2,<br/>
+  NTD3,NTD3,NTD4,NTD5,<br/>
+  NTD5,NTD4,NTD3,NTD2,<br/>
+  NTD1,NTD1,NTD2,NTD3,<br/>
+  NTD2,NTD1,NTD1,<br/>
+  NTD2,NTD2,NTD3,NTD1,<br/>
+  NTD2,NTD3,NTD4,NTD3,NTD1,<br/>
+  NTD2,NTD3,NTD4,NTD3,NTD2,<br/>
+  NTD1,NTD2,NTDL5,NTD0,<br/>
+  NTD3,NTD3,NTD4,NTD5,<br/>
+  NTD5,NTD4,NTD3,NTD4,NTD2,<br/>
+  NTD1,NTD1,NTD2,NTD3,<br/>
+  NTD2,NTD1,NTD1<br/>
+};<br/>
+float durt[]=                   //根据简谱列出各节拍<br/>
+{<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+  1,1,1,1,<br/>
+  1,0.5,0.5,1,1,<br/>
+  1,0.5,0.5,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,0.5,0.5,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+};<br/>
+int length;<br/>
+int TrigPin = 2;<br/>
+int EchoPin = 3;<br/>
+int TonePin=4;<br/>
+int SensorPin=A0;<br/>
+int sensorValue;<br/>
+int buttonPin=A1;<br/>
+int State = 0;<br/>
+float cm;<br/>
+void setup()<br/>
+{<br/>
+Serial.begin(9600);<br/>
+pinMode(TrigPin, OUTPUT);<br/>
+pinMode(EchoPin, INPUT);<br/>
+pinMode(TonePin,OUTPUT);<br/>
+pinMode(buttonPin,INPUT);<br/>
+  length=sizeof(tune)/sizeof(tune[0]);   //计算长度<br/>
+<br/>
+}<br/>
+void loop()<br/>
+{<br/>
+  int a=analogRead(A1);<br/>
+  if(a>500){<br/>
+    State=1;<br/>
+  }else{<br/>
+    State=0;<br/>
+  }<br/>
+ if (State == HIGH){<br/>
+//发一个10ms的高脉冲去触发TrigPin<br/>
+digitalWrite(TrigPin, LOW);<br/>
+delayMicroseconds(2);<br/>
+digitalWrite(TrigPin, HIGH);<br/>
+delayMicroseconds(10);<br/>
+digitalWrite(TrigPin, LOW);<br/>
+cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米<br/>
+cm = (int(cm * 100.0)) / 100.0; //保留两位小数<br/>
+  if(cm<20)<br/>
+  {tone(TonePin,262);}<br/>
+  else if(cm<30){<br/>
+    tone(TonePin,294);<br/>
+  }else if(cm<40){<br/>
+    tone(TonePin,330);<br/>
+  }  else if(cm<50){<br/>
+    tone(TonePin,350);<br/>
+  }  else if(cm<60){<br/>
+    tone(TonePin,393);<br/>
+  }  else if(cm<70){<br/>
+    tone(TonePin,441);<br/>
+  }  else if(cm<80){<br/>
+    tone(TonePin,495);<br/>
+  }else{noTone(TonePin);}<br/>
+sensorValue = analogRead(SensorPin);<br/>
+if (sensorValue>50){<br/>
+  delay(sensorValue);<br/>
+  noTone(TonePin);<br/>
+}<br/>
+Serial.print(cm);<br/>
+Serial.print("cm");<br/>
+Serial.println(); }<br/>
+else{<br/>
+   for(int x=0;x<length;x++)<br/>
+  {<br/>
+    tone(TonePin,tune[x]);<br/>
+    sensorValue = analogRead(SensorPin);<br/>
+    delay(sensorValue*durt[x]);   //这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，我发现用500比较合适。<br/>
+    noTone(TonePin);<br/>
+  }<br/>
+  delay(2000);<br/>
+}<br/>
+}<br/>
+
+	 </code>
+	 </div>
+
+	</div>
