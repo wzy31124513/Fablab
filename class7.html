@@ -8,7 +8,7 @@
     <meta name="description" content="documentation website for fabo academy x">
     <meta name="author" content="Ziyang">
 
-    <title>CLASS SEVEN</title>
+    <title>Final Project</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
             <li><a href="class4.html">Class 4</a></li>
             <li><a href="class5.html">Class 5</a></li>
             <li><a href="class6.html">Class 6</a></li>
-            <li><a href="class7.html">Class 7</a></li>
+            <li><a href="class7.html">Final Project</a></li>
 
 
           </ul>
@@ -47,8 +47,8 @@
     <div class="container theme-showcase" role="main">
 
       <div class="jumbotron">
-        <h1>CLASS SEVEN</h1>
-        <p>Begin to do my final project.</p></div>
+        <h1>Final Project</h1>
+        <p>My final project is called <l>Fantastic Keyboard.</l></p></div>
 	 <div class="well">
 	 	<p>For my final project, I would like to make a music instruemnt like Theremin organ, which is the only instrument in the world that player doesn't need to touch.</p>
 	 	<p><img src="image/d0c8a786c9177f3e370ca57a70cf3bc79f3d5688.jpg" height=500></p>
@@ -56,150 +56,246 @@
 	 	<p><img src="image/Sr04.jpg" height=500></p>
 	 	<p><img src="image/buzzer.jpg"></p>
 	 </div>
+	 <div class='well'>
+	 	<p>I found code of how to use HC-SR04 on the Internet:</p>
+	 	<pre>
+const int TrigPin = 2;
+const int EchoPin = 3;
+float cm;
+void setup()
+{
+Serial.begin(9600);
+pinMode(TrigPin, OUTPUT);
+pinMode(EchoPin, INPUT);
+}
+void loop()
+{
+//发一个10ms的高脉冲去触发TrigPin
+digitalWrite(TrigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(TrigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(TrigPin, LOW);
 
-	 <div>
-	 	<p>After searching for how to use the sensor and buzzer on the Internet, I made a working circuit,which can make the organ change the beat, or let it play fixed track. Here's the code:</p>
-	 <code>
-	 	#define NTD0 -1<br/>
-    #define NTD1 294<br/>
-#define NTD2 330<br/>
-#define NTD3 350<br/>
-#define NTD4 393<br/>
-#define NTD5 441<br/>
-#define NTD6 495<br/>
-#define NTD7 556<br/>
+cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米
+cm = (int(cm * 100.0)) / 100.0; //保留两位小数
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+delay(1000);
+}const int TrigPin = 2;
+const int EchoPin = 3;
+float cm;
+void setup()
+{
+Serial.begin(9600);
+pinMode(TrigPin, OUTPUT);
+pinMode(EchoPin, INPUT);
+}
+void loop()
+{
+//发一个10ms的高脉冲去触发TrigPin
+digitalWrite(TrigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(TrigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(TrigPin, LOW);
 
-#define NTDL1 147<br/>
-#define NTDL2 165<br/>
-#define NTDL3 175<br/>
-#define NTDL4 196<br/>
-#define NTDL5 221<br/>
-#define NTDL6 248<br/>
-#define NTDL7 278<br/>
-#define NTDH1 589<br/>
-#define NTDH2 661<br/>
-#define NTDH3 700<br/>
-#define NTDH4 786<br/>
-#define NTDH5 882<br/>
-#define NTDH6 990<br/>
-#define NTDH7 112<br/>
-//列出全部D调的频率<br/>
-#define WHOLE 1<br/>
-#define HALF 0.5<br/>
-#define QUARTER 0.25<br/>
-#define EIGHTH 0.25<br/>
-#define SIXTEENTH 0.625<br/>
-//列出所有节拍<br/>
-int tune[]=                 //根据简谱列出各频率<br/>
-{<br/>
-  NTD3,NTD3,NTD4,NTD5,<br/>
-  NTD5,NTD4,NTD3,NTD2,<br/>
-  NTD1,NTD1,NTD2,NTD3,<br/>
-  NTD3,NTD2,NTD2,<br/>
-  NTD3,NTD3,NTD4,NTD5,<br/>
-  NTD5,NTD4,NTD3,NTD2,<br/>
-  NTD1,NTD1,NTD2,NTD3,<br/>
-  NTD2,NTD1,NTD1,<br/>
-  NTD2,NTD2,NTD3,NTD1,<br/>
-  NTD2,NTD3,NTD4,NTD3,NTD1,<br/>
-  NTD2,NTD3,NTD4,NTD3,NTD2,<br/>
-  NTD1,NTD2,NTDL5,NTD0,<br/>
-  NTD3,NTD3,NTD4,NTD5,<br/>
-  NTD5,NTD4,NTD3,NTD4,NTD2,<br/>
-  NTD1,NTD1,NTD2,NTD3,<br/>
-  NTD2,NTD1,NTD1<br/>
-};<br/>
-float durt[]=                   //根据简谱列出各节拍<br/>
-{<br/>
-  1,1,1,1,<br/>
-  1,1,1,1,<br/>
-  1,1,1,1,<br/>
-  1+0.5,0.5,1+1,<br/>
-  1,1,1,1,<br/>
-  1,1,1,1,<br/>
-  1,1,1,1,<br/>
-  1+0.5,0.5,1+1,<br/>
-  1,1,1,1,<br/>
-  1,0.5,0.5,1,1,<br/>
-  1,0.5,0.5,1,1,<br/>
-  1,1,1,1,<br/>
-  1,1,1,1,<br/>
-  1,1,1,0.5,0.5,<br/>
-  1,1,1,1,<br/>
-  1+0.5,0.5,1+1,<br/>
-};<br/>
-int length;<br/>
-int TrigPin = 2;<br/>
-int EchoPin = 3;<br/>
-int TonePin=4;<br/>
-int SensorPin=A0;<br/>
-int sensorValue;<br/>
-int buttonPin=A1;<br/>
-int State = 0;<br/>
-float cm;<br/>
-void setup()<br/>
-{<br/>
-Serial.begin(9600);<br/>
-pinMode(TrigPin, OUTPUT);<br/>
-pinMode(EchoPin, INPUT);<br/>
-pinMode(TonePin,OUTPUT);<br/>
-pinMode(buttonPin,INPUT);<br/>
-  length=sizeof(tune)/sizeof(tune[0]);   //计算长度<br/>
-<br/>
-}<br/>
-void loop()<br/>
-{<br/>
-  int a=analogRead(A1);<br/>
-  if(a>500){<br/>
-    State=1;<br/>
-  }else{<br/>
-    State=0;<br/>
-  }<br/>
- if (State == HIGH){<br/>
-//发一个10ms的高脉冲去触发TrigPin<br/>
-digitalWrite(TrigPin, LOW);<br/>
-delayMicroseconds(2);<br/>
-digitalWrite(TrigPin, HIGH);<br/>
-delayMicroseconds(10);<br/>
-digitalWrite(TrigPin, LOW);<br/>
-cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米<br/>
-cm = (int(cm * 100.0)) / 100.0; //保留两位小数<br/>
-  if(cm<20)<br/>
-  {tone(TonePin,262);}<br/>
-  else if(cm<30){<br/>
-    tone(TonePin,294);<br/>
-  }else if(cm<40){<br/>
-    tone(TonePin,330);<br/>
-  }  else if(cm<50){<br/>
-    tone(TonePin,350);<br/>
-  }  else if(cm<60){<br/>
-    tone(TonePin,393);<br/>
-  }  else if(cm<70){<br/>
-    tone(TonePin,441);<br/>
-  }  else if(cm<80){<br/>
-    tone(TonePin,495);<br/>
-  }else{noTone(TonePin);}<br/>
-sensorValue = analogRead(SensorPin);<br/>
-if (sensorValue>50){<br/>
-  delay(sensorValue);<br/>
-  noTone(TonePin);<br/>
-}<br/>
-Serial.print(cm);<br/>
-Serial.print("cm");<br/>
-Serial.println(); }<br/>
-else{<br/>
-   for(int x=0;x<length;x++)<br/>
-  {<br/>
-    tone(TonePin,tune[x]);<br/>
-    sensorValue = analogRead(SensorPin);<br/>
-    delay(sensorValue*durt[x]);   //这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，我发现用500比较合适。<br/>
-    noTone(TonePin);<br/>
-  }<br/>
-  delay(2000);<br/>
-}<br/>
-}<br/>
-
-	 </code>
+cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米
+cm = (int(cm * 100.0)) / 100.0; //保留两位小数
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+delay(1000);
+}
+	 	</pre>
+	 	<p>This code make HC-SR04 work at first time, but it has some noise to be eliminated.</p>
+	 </div>
+	 <div class="well">
+	 	To make tone controled by distance, I need to find the frequency of different tones, first.
+	 	<pre>
+#define NOTE_B0  31
+#define NOTE_C1  33
+#define NOTE_CS1 35
+#define NOTE_D1  37
+#define NOTE_DS1 39
+#define NOTE_E1  41
+#define NOTE_F1  44
+#define NOTE_FS1 46
+#define NOTE_G1  49
+#define NOTE_GS1 52
+#define NOTE_A1  55
+#define NOTE_AS1 58
+#define NOTE_B1  62
+#define NOTE_C2  65
+#define NOTE_CS2 69
+#define NOTE_D2  73
+#define NOTE_DS2 78
+#define NOTE_E2  82
+#define NOTE_F2  87
+#define NOTE_FS2 93
+#define NOTE_G2  98
+#define NOTE_GS2 104
+#define NOTE_A2  110
+#define NOTE_AS2 117
+#define NOTE_B2  123
+#define NOTE_C3  131
+#define NOTE_CS3 139
+#define NOTE_D3  147
+#define NOTE_DS3 156
+#define NOTE_E3  165
+#define NOTE_F3  175
+#define NOTE_FS3 185
+#define NOTE_G3  196
+#define NOTE_GS3 208
+#define NOTE_A3  220
+#define NOTE_AS3 233
+#define NOTE_B3  247
+#define NOTE_C4  262
+#define NOTE_CS4 277
+#define NOTE_D4  294
+#define NOTE_DS4 311
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_FS4 370
+#define NOTE_G4  392
+#define NOTE_GS4 415
+#define NOTE_A4  440
+#define NOTE_AS4 466
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_CS5 554
+#define NOTE_D5  587
+#define NOTE_DS5 622
+#define NOTE_E5  659
+#define NOTE_F5  698
+#define NOTE_FS5 740
+#define NOTE_G5  784
+#define NOTE_GS5 831
+#define NOTE_A5  880
+#define NOTE_AS5 932
+#define NOTE_B5  988
+#define NOTE_C6  1047
+#define NOTE_CS6 1109
+#define NOTE_D6  1175
+#define NOTE_DS6 1245
+#define NOTE_E6  1319
+#define NOTE_F6  1397
+#define NOTE_FS6 1480
+#define NOTE_G6  1568
+#define NOTE_GS6 1661
+#define NOTE_A6  1760
+#define NOTE_AS6 1865
+#define NOTE_B6  1976
+#define NOTE_C7  2093
+#define NOTE_CS7 2217
+#define NOTE_D7  2349
+#define NOTE_DS7 2489
+#define NOTE_E7  2637
+#define NOTE_F7  2794
+#define NOTE_FS7 2960
+#define NOTE_G7  3136
+#define NOTE_GS7 3322
+#define NOTE_A7  3520
+#define NOTE_AS7 3729
+#define NOTE_B7  3951
+#define NOTE_C8  4186
+#define NOTE_CS8 4435
+#define NOTE_D8  4699
+#define NOTE_DS8 4978
+	 	</pre>
+	 	<p>I used the frequency of C3,D3,E3,F3,G3,A3,B3,C4, which is alto sound of C major.</p>
 	 </div>
 
+	 <div class="well">
+	 	<p>Soon I found that the speaker sounds better than buzzer, and I can change the volume of the speaker through changing the value of resistance between the speaker and the ground.</p>
+	 	<p><img src="image/speaker.jpg"></p>
+	 </div>
+	 <div class="well">
+	 	<p>
+	 		At the same time, I found some fixed sheet on the Internet to make my keyboard play fixed songs. I put them into the keyboard. But soon I found that it's not interesting at all. There's nothing cooler than play your own songs on the keyboard! So I canceled that function to make it just a simple keyboard.
+	 	</p>
+	 	<p>
+	 		However, it's still interesting to play a fixed rhythm by electric sound, which makes it like a metronome, but the tone can be changed.
+	 	</p>
+	 </div>
+	 <div class="well">
+	 	<p>I made a working circuit,which can make the organ change the beat, or let it play fixed track. Here's the code:</p>
+	 	<div >
+	 	  <pre>
+int length;
+int TrigPin = 2;
+int EchoPin = 3;
+int TonePin=4;
+int SensorPin=A0;
+int sensorValue;
+int buttonPin=A1;
+int ledPin=13;
+int State = 0;
+float cm;
+float cm1;
+void setup()
+{
+Serial.begin(9600);
+pinMode(TrigPin, OUTPUT);
+pinMode(EchoPin, INPUT);
+pinMode(TonePin,OUTPUT);
+pinMode(buttonPin,INPUT);
+pinMode(ledPin,OUTPUT);
+}
+void loop()
+{
+
+
+//发一个10ms的高脉冲去触发TrigPin
+digitalWrite(TrigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(TrigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(TrigPin, LOW);
+cm = pulseIn(EchoPin, HIGH) / 58.0; //算成厘米
+if(cm<100){
+   cm1=cm;
+}
+cm1 = (int(cm1 * 100.0)) / 100.0; //保留两位小数
+cm=cm1;
+  if(cm<16)
+  {tone(TonePin,262);}
+  else if(cm<22){
+    tone(TonePin,294);
+  }else if(cm<26){
+    tone(TonePin,330);
+  }  else if(cm<32){
+    tone(TonePin,350);
+  }  else if(cm<37){
+    tone(TonePin,393);
+  }  else if(cm<41){
+    tone(TonePin,441);
+  }  else if(cm<46){
+    tone(TonePin,495);
+  }else if(cm<50){
+    tone(TonePin,523);
+  }else{noTone(TonePin);}
+digitalWrite(ledPin,HIGH);
+sensorValue = analogRead(SensorPin);
+Serial.println(sensorValue);
+if (sensorValue>50){
+  delay(sensorValue);
+  noTone(TonePin);
+    digitalWrite(ledPin,LOW);
+
+  delay(20);
+  }else{
+  delay(100);
+}
+Serial.print(cm);
+Serial.print("cm");
+Serial.println(); }
+
+
+	 </pre></div>
+	 </div>
+<div class="well">
+	<p>I put more information about my <l>Fantastic Keyboard</l> on my netdisk:<a href="https://pan.baidu.com/s/1pLaEtXT">https://pan.baidu.com/s/1pLaEtXT</a>,the password is k3ut.</p>
+</div>
 	</div>
